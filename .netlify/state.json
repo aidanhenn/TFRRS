@@ -1,5 +1,4 @@
 {
-	"siteId": "eb5f1612-7af4-4ff0-bcd0-a02ebe0bec6c",
 	"geolocation": {
 		"data": {
 			"city": "Willimantic",
@@ -16,5 +15,6 @@
 			"longitude": -72.2096
 		},
 		"timestamp": 1712718620652
-	}
+	},
+	"siteId": "d73d2bee-06cd-48ee-90fe-205d3d5ad5ec"
 }
