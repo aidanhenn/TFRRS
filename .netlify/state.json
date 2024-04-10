@@ -1,0 +1,20 @@
+{
+	"siteId": "eb5f1612-7af4-4ff0-bcd0-a02ebe0bec6c",
+	"geolocation": {
+		"data": {
+			"city": "Willimantic",
+			"country": {
+				"code": "US",
+				"name": "United States"
+			},
+			"subdivision": {
+				"code": "CT",
+				"name": "Connecticut"
+			},
+			"timezone": "America/New_York",
+			"latitude": 41.7127,
+			"longitude": -72.2096
+		},
+		"timestamp": 1712718620652
+	}
+}

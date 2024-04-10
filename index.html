@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TFRRS Team Scorer</title>
+  </head>
+  <body>
+    <h1>My first serverless function!</h1>
+    <button id="fetchBtn">Fetch</button>
+    <p id="responseOut">Placeholder</p>
+
+    <script>
+          document.addEventListener("DOMContentLoaded", ()=> {
+          const responseText = document.getElementById("responseOut")
+          const fetchBtn = document.getElementById("fetchBtn")
+
+          fetchBtn.addEventListener("click", async() => {
+              const response = await fetch('/.netlify/functions/main').then(
+                response => response.json()
+          )
+              responseText.innerHTML = "Serverless Function Called!"
+          })
+      })
+    </script>
+  </body>
+</html>
