@@ -7,21 +7,29 @@
   </head>
   <body>
     <h1>My first serverless function!</h1>
-    <button id="fetchBtn">Fetch</button>
-    <p id="responseOut">Placeholder</p>
+    <label for="url-input">Enter URL to scrape:</label>
+    <input type="text" id="url-input" />
+    <button id="fetch-btn">Score Teams</button>
+    <p id="responseOut">Enter the URL of a conference from TFRRS above</p>
 
     <script>
-          document.addEventListener("DOMContentLoaded", ()=> {
-          const responseText = document.getElementById("responseOut")
-          const fetchBtn = document.getElementById("fetchBtn")
+      document.addEventListener("DOMContentLoaded", () => {
+        const fetchBtn = document.getElementById("fetch-btn");
+        const responseText = document.getElementById("responseOut");
+        const urlInput = document.getElementById("url-input");
+        fetchBtn.addEventListener("click", async () => {
+          const url = urlInput.value; // Get the URL from the input field
+          const response = await fetch("/.netlify/functions/main", {
+            method: "POST", // Use POST method to send the data in the request body
+            body: JSON.stringify({ url }), // Send URL as plain text in the request body
+            headers: {
+              "Content-Type": "application/json", // Specify JSON content type
+            },
+          }).then((response) => response.json());
 
-          fetchBtn.addEventListener("click", async() => {
-              const response = await fetch('/.netlify/functions/main').then(
-                response => response.json()
-          )
-              responseText.innerHTML = "Serverless Function Called!"
-          })
-      })
+          responseText.innerText = response.message;
+        });
+      });
     </script>
   </body>
 </html>
