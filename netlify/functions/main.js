@@ -2,6 +2,7 @@ const puppeteer = require("puppeteer");
 
 exports.handler = async function calcScores(event) {
     const requestBody = JSON.parse(event.body);
+    console.log("Received JSON data:", requestBody)
     console.log("Received URL:", requestBody.url); // Log the URL received from the request body
     const url = requestBody.url;
     //const url = "https://www.tfrrs.org/lists/4718/Little_East_Outdoor_Performance_List";
