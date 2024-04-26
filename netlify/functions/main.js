@@ -1,8 +1,18 @@
 const puppeteer = require("puppeteer");
 
 exports.handler = async function calcScores(event) {
-    const requestBody = JSON.parse(event.body);
+  let requestBody;
+    console.log("Received event body:", event.body);
+    try{
+    requestBody = JSON.parse(event.body);
+    console.log("Received request body:", requestBody);
+  }
+    catch(error){
+      console.error("Failed to parse event body, error:", error)
+    }
+    
     console.log("Received URL:", requestBody.url); // Log the URL received from the request body
+
     const url = requestBody.url;
     //const url = "https://www.tfrrs.org/lists/4718/Little_East_Outdoor_Performance_List";
 
@@ -23,14 +33,14 @@ exports.handler = async function calcScores(event) {
     }
     await browser.close();
 
-    console.log(response); // Print the response here
     response = JSON.stringify(response)
+    console.log("response" + response); // Print the response here
+
     //const stringifiedResponse = response.map(obj => JSON.stringify(obj, null, 2)).join('');
 
 return {
     statusCode: 200,
-    body: JSON.stringify({ message: response }),
-};
+    body: JSON.stringify({ message: response }),};
 }
 
 async function scoreTeams(page) {
