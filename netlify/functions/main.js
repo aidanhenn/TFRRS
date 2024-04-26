@@ -18,17 +18,18 @@ exports.handler = async function calcScores(event) {
       response = await scoreTeams(page); // Pass the page as an argument
       if (response === null) {
         // Wait for a short duration before retrying
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
     }
     await browser.close();
 
     console.log(response); // Print the response here
-    const stringifiedResponse = response.map(obj => JSON.stringify(obj, null, 2)).join('');
+    response = JSON.stringify(response)
+    //const stringifiedResponse = response.map(obj => JSON.stringify(obj, null, 2)).join('');
 
 return {
     statusCode: 200,
-    body: JSON.stringify({ message: stringifiedResponse }),
+    body: JSON.stringify({ message: response }),
 };
 }
 
@@ -41,7 +42,7 @@ async function scoreTeams(page) {
 
     var gender = "m";
 
-    for (let j = 0; j <= 41; j++) { //81
+    for (let j = 0; j <= 5; j++) { //81
       if (
         (await page.$(
           `#list_data > div.panel-body.frame-loading-hide > div.row.gender_${gender}.standard_event_hnd_${j}`
@@ -101,10 +102,19 @@ async function scoreTeams(page) {
       }
     }
     // format teamNameandScores array so that it is a list of objects
-    for (let i = 0; i < teams.length; i++) {
-      teamNameandScores.push({ name: teams[i], score: teamScores[i] });
-    }
+    // format teamNameandScores array so that it is a list of objects
+for (let i = 0; i < teams.length; i++) {
+  const trimmedName = teams[i].trim(); // Trim whitespace from team name
+  const score = teamScores[i];
+  if (trimmedName && score !== undefined) { // Check for undefined values
+      teamNameandScores.push({ name: trimmedName, score: score });
+  } else {
+      console.log("Undefined value found at index:", i);
+  }
+}
+
     // sort by score (highest to lowest)
     teamNameandScores.sort((a, b) => b.score - a.score);
+    console.log("teamNameandScores:", teamNameandScores);
     return teamNameandScores;
   };
