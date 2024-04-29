@@ -28,7 +28,7 @@ exports.handler = async function calcScores(event) {
       response = await scoreTeams(page); // Pass the page as an argument
       if (response === null) {
         // Wait for a short duration before retrying
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 300));
       }
     }
     await browser.close();
